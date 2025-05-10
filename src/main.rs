@@ -8,12 +8,14 @@ fn main() -> Result<(), Box<dyn Error>> {
     let config_path = std::env::var("DEVNOTIFY_CONFIG").unwrap_or_else(|_|
         "~/.config/devnotify/devnotify.ron".to_string()
     );
-    let config = config::Config::load(config_path.as_str());
-    println!("Config loaded from: {}", config_path);
 
     let home = std::env::var("HOME").unwrap();
+    println!("Config loading from: {}", config_path);
+    let config_path = config_path.replace("~", &home);
+    let config = config::Config::load(config_path.as_str());
     let connect_sound_path = config.connect_sound.replace("~", &home);
     let disconnect_sound_path = config.disconnect_sound.replace("~", &home);
+    std::env::set_current_dir(Path::new(&config_path).parent().unwrap()).expect("Failed to set current directory");
 
     let mut connect_sound = Sound::new(&connect_sound_path)?;
     connect_sound.set_volume(config.volume as f32 / 100.0);
