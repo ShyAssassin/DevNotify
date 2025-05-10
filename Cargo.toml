@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-ears = "0.8.0"
-libnotify = "1.0.3"
-ron = "0.10.1"
-serde = { version = "1.0.219", features = ["derive"] }
+ears = { version = "0.8.0" }
+ron = { version = "0.10.1" }
+libnotify = { version = "1.0.3" }
 udev = { version = "0.9.3", features = ["hwdb"] }
+serde = { version = "1.0.219", features = ["derive"] }
