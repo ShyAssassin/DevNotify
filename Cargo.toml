@@ -1,0 +1,11 @@
+[package]
+name = "devnotify"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ears = "0.8.0"
+libnotify = "1.0.3"
+ron = "0.10.1"
+serde = { version = "1.0.219", features = ["derive"] }
+udev = { version = "0.9.3", features = ["hwdb"] }
