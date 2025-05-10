@@ -9,6 +9,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         "~/.config/devnotify/devnotify.ron".to_string()
     );
     let config = config::Config::load(config_path.as_str());
+    println!("Config loaded from: {}", config_path);
 
     let home = std::env::var("HOME").unwrap();
     let connect_sound_path = config.connect_sound.replace("~", &home);

@@ -8,6 +8,41 @@
       inherit system;
     };
   in {
+      packages = forAllSystems (system: let
+      pkgs = pkgsFor system;
+    in {
+      devnotify = pkgs.rustPlatform.buildRustPackage {
+        pname = "devnotify";
+        version = "0.1.0";
+        src = ./.;
+        cargoLock = {
+          lockFile = ./Cargo.lock;
+        };
+
+        nativeBuildInputs = with pkgs; [
+          pkg-config
+          rustc
+          cargo
+        ];
+
+        buildInputs = with pkgs; [
+          udev
+          openal
+          libsndfile
+          libnotify
+          glib
+        ];
+
+        meta = with pkgs.lib; {
+          license = licenses.mit;
+          platforms = platforms.linux;
+          maintainers = with maintainers; [ ShyAssassin ];
+          homepage = "https://github.com/ShyAssassin/DevNotify";
+          description = "A simple tool to notify you when you plug in a usb device";
+        };
+      };
+    });
+
     devShells = forAllSystems (system: let
       pkgs = pkgsFor system;
     in {
